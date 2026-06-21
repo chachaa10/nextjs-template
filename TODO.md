@@ -1,14 +1,16 @@
 # Packages to add
 
+- [x] zod
 - [ ] tanstack form
-- [ ] zod
 - [ ] tanstack table
 - [ ] better-auth
-- [ ] drizzle-orm
-- [ ] postgres via docker
-- [ ] dotenv
-- [ ] vitest
-- [ ] @testing-library/react
+- [x] drizzle-orm
+- [x] postgres via docker
+- [x] dotenv
+- [x] vitest
+- [x] @testing-library/react
+- [ ] zustand
+- [x] neverthrow
 
 # Optional Packages
 - [ ] tiptap
