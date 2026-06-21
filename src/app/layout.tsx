@@ -1,6 +1,6 @@
 import { Geist_Mono, IBM_Plex_Sans, Oxanium } from "next/font/google";
 
-import { ThemeProvider } from "@/components/theme-provider.tsx";
+import { ThemeProvider } from "@/core/providers/theme-provider.tsx";
 import { cn } from "@/lib/utils.ts";
 import "./globals.css";
 
