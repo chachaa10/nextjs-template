@@ -1,0 +1,11 @@
+{
+  "biome.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "always",
+    "source.organizeImports.biome": "always",
+    "source.biome": "always"
+  },
+  "[javascript][typescript][javascriptreact][typescriptreact][json][jsonc][css]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
+}
