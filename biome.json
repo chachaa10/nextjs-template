@@ -14,15 +14,14 @@
     "enabled": true,
     "rules": {
       "preset": "all",
-      "complexity": { "noExcessiveCognitiveComplexity": "off" },
-      "correctness": { "noUnresolvedImports": "off" },
-      "security": { "noSecrets": "off" },
-      "style": {
-        "noDefaultExport": "off",
-        "noJsxLiterals": "off",
-        "noTernary": "off"
+      "performance": {
+        "recommended": true
       },
-      "suspicious": { "noReactSpecificProps": "off" },
+      "complexity": { "recommended": true },
+      "correctness": { "recommended": true },
+      "security": { "recommended": true },
+      "style": { "recommended": true },
+      "suspicious": { "recommended": true },
       "nursery": {
         "recommended": true,
         "useSortedClasses": {
@@ -30,57 +29,29 @@
           "fix": "safe",
           "options": { "functions": ["cn", "cva"] }
         }
+      },
+      "a11y": {
+        "recommended": true
       }
     }
   },
   "javascript": {
-    "formatter": { "quoteStyle": "double", "semicolons": "always" },
-    "globals": ["exports", "location"]
+    "formatter": {
+      "quoteStyle": "double",
+      "semicolons": "always",
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "indentStyle": "space",
+      "arrowParentheses": "always",
+      "lineWidth": 100,
+      "enabled": true,
+      "indentWidth": 2
+    }
   },
   "css": {
     "parser": { "tailwindDirectives": true }
   },
-  "overrides": [
-    {
-      "includes": ["**/*.{jsx,tsx}"],
-      "linter": {
-        "rules": {
-          "correctness": { "useExhaustiveDependencies": "warn" },
-          "performance": { "noNamespaceImport": "off" },
-          "security": { "noBlankTarget": "off" },
-          "suspicious": { "noUnknownAttribute": "off" }
-        }
-      }
-    },
-    {
-      "includes": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
-      "linter": {
-        "rules": {
-          "correctness": {
-            "noConstAssign": "off",
-            "noGlobalObjectCalls": "off",
-            "noInvalidBuiltinInstantiation": "off",
-            "noInvalidConstructorSuper": "off",
-            "noSetterReturn": "off",
-            "noUndeclaredVariables": "off",
-            "noUnreachable": "off",
-            "noUnreachableSuper": "off"
-          },
-          "suspicious": {
-            "noClassAssign": "off",
-            "noDuplicateClassMembers": "off",
-            "noDuplicateObjectKeys": "off",
-            "noDuplicateParameters": "off",
-            "noFunctionAssign": "off",
-            "noImportAssign": "off",
-            "noRedeclare": "off",
-            "noUnsafeNegation": "off",
-            "useGetterReturn": "off"
-          }
-        }
-      }
-    }
-  ],
+  "overrides": [],
   "assist": {
     "enabled": true,
     "actions": { "source": { "organizeImports": "on", "recommended": true } }
