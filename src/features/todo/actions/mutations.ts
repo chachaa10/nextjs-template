@@ -11,7 +11,7 @@ import {
   createTodoSchema,
   type UpdateTodo,
   updateTodoSchema,
-} from "../validation/todo-schema.ts";
+} from "../validation/todo-validate.ts";
 
 export async function createTodo(input: CreateTodo): Promise<Result<Todo>> {
   try {

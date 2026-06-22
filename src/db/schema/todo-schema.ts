@@ -13,4 +13,4 @@ export const todo = pgTable("todo", {
 });
 
 export type Todo = typeof todo.$inferSelect;
-export type NewTodo = typeof todo.$inferInsert;
+

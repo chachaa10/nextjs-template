@@ -14,7 +14,7 @@ import {
 } from "@/shared/components/ui/dialog.tsx";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/shared/components/ui/field.tsx";
 import { Input } from "@/shared/components/ui/input.tsx";
-import { type CreateTodo, createTodoSchema } from "../validation/todo-schema.ts";
+import { type CreateTodo, createTodoSchema } from "../validation/todo-validate.ts";
 
 type SubmitHandler = (values: CreateTodo) => Promise<{ success: boolean; error?: string }>;
 

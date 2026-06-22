@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 
+import type { Todo } from "@/db/schema/todo-schema.ts";
 import { Button } from "@/shared/components/ui/button.tsx";
 import {
   Card,
@@ -16,10 +17,17 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card.tsx";
 import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog.tsx";
-import type { Todo } from "@/db/schema/todo-schema.ts";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/shared/components/ui/table.tsx";
 import { createTodo, deleteTodo, updateTodo } from "../actions/mutations.ts";
+import type { CreateTodo } from "../validation/todo-validate.ts";
 import { TodoForm } from "./todo-form.tsx";
-import type { CreateTodo } from "../validation/todo-schema.ts";
 
 function formatDate(value: Date | string): string {
   return new Date(value).toLocaleDateString("en-US", {
@@ -155,42 +163,36 @@ export function TodoList({ initialTodos }: TodoListProps) {
             <CardTitle>All Todos</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-            <table className="w-full text-xs">
-              <thead>
+            <Table>
+              <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id} className="border-border border-b">
+                  <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
-                      <th
-                        key={header.id}
-                        className="px-4 py-2 text-left font-medium text-muted-foreground"
-                      >
+                      <TableHead key={header.id}>
                         {flexRender(
                           header.column.columnDef.header,
                           header.getContext(),
                         )}
-                      </th>
+                      </TableHead>
                     ))}
-                  </tr>
+                  </TableRow>
                 ))}
-              </thead>
-              <tbody>
+              </TableHeader>
+              <TableBody>
                 {table.getRowModel().rows.map((row) => (
-                  <tr
-                    key={row.id}
-                    className="border-border border-b last:border-0 hover:bg-muted/50"
-                  >
+                  <TableRow key={row.id}>
                     {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-4 py-2">
+                      <TableCell key={cell.id}>
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext(),
                         )}
-                      </td>
+                      </TableCell>
                     ))}
-                  </tr>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </CardContent>
         </Card>
       )}
