@@ -42,7 +42,7 @@ export function LoginForm({ redirectTo }: { redirectTo: Route | undefined }) {
       className="flex flex-col gap-4"
     >
       <FieldGroup>
-        <form.Field name="email">
+        <form.Field name="email" validators={{ onBlur: LoginSchema.shape.email }}>
           {(field) => {
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (
@@ -65,7 +65,7 @@ export function LoginForm({ redirectTo }: { redirectTo: Route | undefined }) {
           }}
         </form.Field>
 
-        <form.Field name="password">
+        <form.Field name="password" validators={{ onBlur: LoginSchema.shape.password }}>
           {(field) => {
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (

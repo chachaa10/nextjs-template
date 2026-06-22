@@ -1,7 +1,7 @@
 "use client";
 
-import type { Route } from "next";
 import { useForm } from "@tanstack/react-form";
+import type { Route } from "next";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -18,7 +18,9 @@ export function SignUpForm({ redirectTo }: { redirectTo: Route | undefined }) {
   const form = useForm({
     defaultValues: { name: "", email: "", password: "" },
     validators: {
-      onChange: () => { setAuthError(null); },
+      onChange: () => {
+        setAuthError(null);
+      },
       onSubmit: signUpSchema,
     },
     onSubmit: async ({ value }) => {
@@ -42,7 +44,7 @@ export function SignUpForm({ redirectTo }: { redirectTo: Route | undefined }) {
       className="flex flex-col gap-4"
     >
       <FieldGroup>
-        <form.Field name="name">
+        <form.Field name="name" validators={{ onBlur: signUpSchema.shape.name }}>
           {(field) => {
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (
@@ -64,7 +66,7 @@ export function SignUpForm({ redirectTo }: { redirectTo: Route | undefined }) {
           }}
         </form.Field>
 
-        <form.Field name="email">
+        <form.Field name="email" validators={{ onBlur: signUpSchema.shape.email }}>
           {(field) => {
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (
@@ -87,7 +89,10 @@ export function SignUpForm({ redirectTo }: { redirectTo: Route | undefined }) {
           }}
         </form.Field>
 
-        <form.Field name="password">
+        <form.Field
+          name="password"
+          validators={{ onBlur: signUpSchema.shape.password }}
+        >
           {(field) => {
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (
@@ -101,7 +106,7 @@ export function SignUpForm({ redirectTo }: { redirectTo: Route | undefined }) {
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
                   aria-invalid={isInvalid}
-                  placeholder="At least 8 characters"
+                  placeholder="••••••••"
                   autoComplete="new-password"
                 />
                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
