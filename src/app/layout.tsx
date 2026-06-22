@@ -1,6 +1,7 @@
 import { Geist_Mono, IBM_Plex_Sans, Oxanium } from "next/font/google";
 
 import { ThemeProvider } from "@/core/providers/theme-provider.tsx";
+import { Navbar } from "@/features/auth/components/navbar.tsx";
 import { cn } from "@/lib/utils.ts";
 import "./globals.css";
 
@@ -37,7 +38,10 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

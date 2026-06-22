@@ -1,6 +1,6 @@
 {
-  "id": "37dffeca-7da9-4961-b0d5-2edf89d00d22",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "76bd9703-e589-4357-a1c4-640b5f0b1a8c",
+  "prevId": "37dffeca-7da9-4961-b0d5-2edf89d00d22",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -86,7 +86,8 @@
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {
@@ -157,7 +158,8 @@
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
         "ip_address": {
           "name": "ip_address",
