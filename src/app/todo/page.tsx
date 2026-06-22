@@ -1,22 +1,26 @@
+import { getCurrentUser } from "@/lib/auth.ts";
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth.ts";
+
+import { getTodos } from "@/features/todo/actions/queries.ts";
+import { TodoList } from "@/features/todo/components/todo-list.tsx";
 
 export default async function TodoPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const auth = await getCurrentUser();
 
-  if (!session) {
+  if (!auth) {
     redirect("/login");
+  }
+
+  const result = await getTodos();
+
+  if (!result.success) {
+    throw new Error(result.error);
   }
 
   return (
     <div className="p-6">
       <h1 className="mb-4 font-medium text-lg">Todo</h1>
-      <p className="text-muted-foreground text-sm">
-        Welcome, {session.user.name}. This page is only visible to authenticated users.
-      </p>
+      <TodoList initialTodos={result.data} />
     </div>
   );
 }
