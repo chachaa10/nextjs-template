@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import { LoginForm } from "@/features/auth/components/login-form.tsx";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -10,7 +11,13 @@ import {
 } from "@/shared/components/ui/card.tsx";
 import Link from "next/link";
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ redirect?: string }>;
+}) {
+  const redirect = (await searchParams).redirect as Route | undefined;
+
   return (
     <div className="flex min-h-svh items-center justify-center p-6">
       <Card className="w-full max-w-sm">
@@ -19,7 +26,7 @@ export default function LoginPage() {
           <CardDescription>Enter your credentials</CardDescription>
         </CardHeader>
         <CardContent>
-          <LoginForm />
+          <LoginForm redirectTo={redirect} />
         </CardContent>
         <CardFooter>
           <p className="text-muted-foreground text-xs">

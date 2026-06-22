@@ -1,5 +1,6 @@
 "use client";
 
+import type { Route } from "next";
 import { useForm } from "@tanstack/react-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,7 +11,7 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/shared/components/u
 import { Input } from "@/shared/components/ui/input.tsx";
 import { LoginSchema } from "../validation/auth-validate.ts";
 
-export function LoginForm() {
+export function LoginForm({ redirectTo }: { redirectTo: Route | undefined }) {
   const router = useRouter();
   const [authError, setAuthError] = useState<string | null>(null);
 
@@ -27,7 +28,7 @@ export function LoginForm() {
         setAuthError(error.message ?? "Invalid email or password");
         return;
       }
-      router.push("/");
+      router.push(redirectTo ?? "/");
     },
   });
 

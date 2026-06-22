@@ -8,9 +8,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/components/ui/card.tsx";
+import type { Route } from "next";
 import Link from "next/link";
 
-export default function SignUpPage() {
+export default async function SignUpPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ redirect?: string }>;
+}) {
+  const redirect = (await searchParams).redirect as Route | undefined;
+
   return (
     <div className="flex min-h-svh items-center justify-center p-6">
       <Card className="w-full max-w-sm">
@@ -19,7 +26,7 @@ export default function SignUpPage() {
           <CardDescription>Fill in the form below</CardDescription>
         </CardHeader>
         <CardContent>
-          <SignUpForm />
+          <SignUpForm redirectTo={redirect} />
         </CardContent>
         <CardFooter>
           <p className="text-muted-foreground text-xs">
