@@ -1,7 +1,7 @@
 # Packages to add
 
 - [x] zod
-- [ ] tanstack form
+- [x] tanstack form
 - [ ] tanstack table
 - [x] better-auth
 - [x] drizzle-orm
