@@ -2,7 +2,7 @@
 
 - [x] zod
 - [x] tanstack form
-- [ ] tanstack table
+- [x] tanstack table
 - [x] better-auth
 - [x] drizzle-orm
 - [x] postgres via docker
@@ -10,7 +10,6 @@
 - [x] vitest
 - [x] @testing-library/react
 - [ ] zustand
-- [x] neverthrow
 
 # Optional Packages
 
