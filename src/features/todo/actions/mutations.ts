@@ -3,9 +3,9 @@
 import { db } from "@/db/db.ts";
 import { type Todo, todo } from "@/db/schema/todo-schema.ts";
 import { getCurrentUser } from "@/lib/auth.ts";
+import type { Result } from "@/shared/types/result.ts";
 import { and, eq } from "drizzle-orm";
 import { revalidateTag } from "next/cache";
-import type { Result } from "@/shared/types/result.ts";
 import {
   type CreateTodo,
   createTodoSchema,
@@ -30,6 +30,7 @@ export async function createTodo(input: CreateTodo): Promise<Result<Todo>> {
     revalidateTag("todos", "max");
     return { success: true, data: created };
   } catch (e) {
+    console.error("[Create Todo Error]:", e instanceof Error ? e.message : "Unknown error");
     return { success: false, error: e instanceof Error ? e.message : "Failed to create todo" };
   }
 }
@@ -52,6 +53,7 @@ export async function updateTodo(id: string, input: UpdateTodo): Promise<Result<
     revalidateTag("todos", "max");
     return { success: true, data: updated };
   } catch (e) {
+    console.error("[Update Todo Error]:", e instanceof Error ? e.message : "Unknown error");
     return { success: false, error: e instanceof Error ? e.message : "Failed to update todo" };
   }
 }
@@ -72,6 +74,7 @@ export async function deleteTodo(id: string): Promise<Result<null>> {
     revalidateTag("todos", "max");
     return { success: true, data: null };
   } catch (e) {
+    console.error("[Delete Todo Error]:", e instanceof Error ? e.message : "Unknown error");
     return { success: false, error: e instanceof Error ? e.message : "Failed to delete todo" };
   }
 }
