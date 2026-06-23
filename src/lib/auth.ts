@@ -25,9 +25,9 @@ export const auth = betterAuth({
 });
 
 export const getCurrentUser = cache(async () => {
-  try {
-    const headersList = await headers();
+  const headersList = await headers();
 
+  try {
     return await auth.api.getSession({
       headers: headersList,
     });

@@ -15,7 +15,7 @@ export async function getTodos(): Promise<Result<Todo[]>> {
     const data = await db
       .select()
       .from(todo)
-      .where(and(eq(todo.userId, auth.user.id), isNotDeleted(todo)))
+      .where(eq(todo.userId, auth.user.id))
       .orderBy(desc(todo.createdAt));
 
     if (!data) {

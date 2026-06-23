@@ -1,13 +1,12 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client.ts";
-import { Button } from "@/shared/components/ui/button.tsx";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useAuth } from "@/features/auth/hooks/useAuth.ts";
+import { Button } from "@/shared/components/ui/button.tsx";
+import { signOutAction } from "../actions/auth-actions.ts";
 
 export function Navbar() {
-  const { data: session, isPending } = authClient.useSession();
-  const router = useRouter();
+  const { user, isPending, isLoggedIn, refresh } = useAuth();
 
   return (
     <nav className="flex items-center gap-4 border-b px-6 py-2">
@@ -18,16 +17,16 @@ export function Navbar() {
         Todo
       </Link>
       <div className="ml-auto flex items-center gap-2">
-        {isPending ? null : session ? (
+        {isPending ? null : isLoggedIn ? (
           <>
-            <span className="text-muted-foreground text-xs">{session.user.name}</span>
+            <span className="text-muted-foreground text-xs">{user?.name}</span>
             <Button
               type="button"
               variant="ghost"
               size="lg"
               onClick={async () => {
-                await authClient.signOut();
-                router.push("/");
+                await signOutAction();
+                refresh();
               }}
             >
               Sign out

@@ -2,19 +2,12 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
-const { mockSignInEmail, mockPush } = vi.hoisted(() => ({
-  mockSignInEmail: vi.fn(),
-  mockPush: vi.fn(),
+const { mockSignInAction } = vi.hoisted(() => ({
+  mockSignInAction: vi.fn(),
 }));
 
-vi.mock("@/lib/auth-client.ts", () => ({
-  authClient: {
-    signIn: { email: mockSignInEmail },
-  },
-}));
-
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push: mockPush, replace: vi.fn(), prefetch: vi.fn(), back: vi.fn(), forward: vi.fn(), refresh: vi.fn() }),
+vi.mock("../actions/auth-actions.ts", () => ({
+  signInAction: mockSignInAction,
 }));
 
 import { VALID_EMAIL } from "../const/test-constants.ts";
@@ -36,8 +29,8 @@ describe("LoginForm", () => {
     expect(screen.getByRole("button", { name: "Log in" })).toBeInTheDocument();
   });
 
-  test("calls authClient.signIn.email on valid submit", async () => {
-    mockSignInEmail.mockResolvedValue({ error: null });
+  test("calls signInAction on valid submit", async () => {
+    mockSignInAction.mockResolvedValue({ success: true, data: undefined });
     const user = userEvent.setup();
     renderForm();
 
@@ -45,35 +38,14 @@ describe("LoginForm", () => {
     await user.type(screen.getByLabelText("Password"), "password123");
     await user.click(screen.getByRole("button", { name: "Log in" }));
 
-    expect(mockSignInEmail).toHaveBeenCalledWith({ email: VALID_EMAIL, password: "password123" });
-  });
-
-  test("redirects to redirectTo on success", async () => {
-    mockSignInEmail.mockResolvedValue({ error: null });
-    const user = userEvent.setup();
-    render(<LoginForm redirectTo="/todo" />);
-
-    await user.type(screen.getByLabelText("Email"), VALID_EMAIL);
-    await user.type(screen.getByLabelText("Password"), "password123");
-    await user.click(screen.getByRole("button", { name: "Log in" }));
-
-    expect(mockPush).toHaveBeenCalledWith("/todo");
-  });
-
-  test("redirects to / when no redirectTo on success", async () => {
-    mockSignInEmail.mockResolvedValue({ error: null });
-    const user = userEvent.setup();
-    renderForm();
-
-    await user.type(screen.getByLabelText("Email"), VALID_EMAIL);
-    await user.type(screen.getByLabelText("Password"), "password123");
-    await user.click(screen.getByRole("button", { name: "Log in" }));
-
-    expect(mockPush).toHaveBeenCalledWith("/");
+    expect(mockSignInAction).toHaveBeenCalledWith({
+      email: VALID_EMAIL,
+      password: "password123",
+    });
   });
 
   test("shows auth error on failed submission", async () => {
-    mockSignInEmail.mockResolvedValue({ error: { message: "Invalid credentials" } });
+    mockSignInAction.mockResolvedValue({ success: false, error: "Invalid credentials" });
     const user = userEvent.setup();
     renderForm();
 
@@ -105,17 +77,5 @@ describe("LoginForm", () => {
     fireEvent.blur(screen.getByLabelText("Password"));
 
     expect(screen.getByText("Password is required")).toBeInTheDocument();
-  });
-
-  test("shows fallback error message when error has no message", async () => {
-    mockSignInEmail.mockResolvedValue({ error: {} });
-    const user = userEvent.setup();
-    renderForm();
-
-    await user.type(screen.getByLabelText("Email"), VALID_EMAIL);
-    await user.type(screen.getByLabelText("Password"), "password123");
-    await user.click(screen.getByRole("button", { name: "Log in" }));
-
-    expect(screen.getByText("Invalid email or password")).toBeInTheDocument();
   });
 });

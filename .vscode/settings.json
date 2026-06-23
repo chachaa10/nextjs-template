@@ -5,7 +5,12 @@
     "source.organizeImports.biome": "always",
     "source.biome": "always"
   },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "biomejs.biome",
   "[javascript][typescript][javascriptreact][typescriptreact][json][jsonc][css]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   }
 }

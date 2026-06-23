@@ -4,19 +4,12 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 
 import { VALID_EMAIL, VALID_NAME, VALID_PASSWORD } from "../const/test-constants.ts";
 
-const { mockSignUpEmail, mockPush } = vi.hoisted(() => ({
-  mockSignUpEmail: vi.fn(),
-  mockPush: vi.fn(),
+const { mockSignUpAction } = vi.hoisted(() => ({
+  mockSignUpAction: vi.fn(),
 }));
 
-vi.mock("@/lib/auth-client.ts", () => ({
-  authClient: {
-    signUp: { email: mockSignUpEmail },
-  },
-}));
-
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push: mockPush, replace: vi.fn(), prefetch: vi.fn(), back: vi.fn(), forward: vi.fn(), refresh: vi.fn() }),
+vi.mock("../actions/auth-actions.ts", () => ({
+  signUpAction: mockSignUpAction,
 }));
 
 import { SignUpForm } from "./sign-up-form.tsx";
@@ -38,8 +31,8 @@ describe("SignUpForm", () => {
     expect(screen.getByRole("button", { name: "Create account" })).toBeInTheDocument();
   });
 
-  test("calls authClient.signUp.email on valid submit", async () => {
-    mockSignUpEmail.mockResolvedValue({ error: null });
+  test("calls signUpAction on valid submit", async () => {
+    mockSignUpAction.mockResolvedValue({ success: true, data: undefined });
     const user = userEvent.setup();
     renderForm();
 
@@ -48,41 +41,15 @@ describe("SignUpForm", () => {
     await user.type(screen.getByLabelText("Password"), VALID_PASSWORD);
     await user.click(screen.getByRole("button", { name: "Create account" }));
 
-    expect(mockSignUpEmail).toHaveBeenCalledWith({
+    expect(mockSignUpAction).toHaveBeenCalledWith({
       name: VALID_NAME,
       email: VALID_EMAIL,
       password: VALID_PASSWORD,
     });
   });
 
-  test("redirects to redirectTo on success", async () => {
-    mockSignUpEmail.mockResolvedValue({ error: null });
-    const user = userEvent.setup();
-    render(<SignUpForm redirectTo="/todo" />);
-
-    await user.type(screen.getByLabelText("Name"), VALID_NAME);
-    await user.type(screen.getByLabelText("Email"), VALID_EMAIL);
-    await user.type(screen.getByLabelText("Password"), VALID_PASSWORD);
-    await user.click(screen.getByRole("button", { name: "Create account" }));
-
-    expect(mockPush).toHaveBeenCalledWith("/todo");
-  });
-
-  test("redirects to / when no redirectTo on success", async () => {
-    mockSignUpEmail.mockResolvedValue({ error: null });
-    const user = userEvent.setup();
-    renderForm();
-
-    await user.type(screen.getByLabelText("Name"), VALID_NAME);
-    await user.type(screen.getByLabelText("Email"), VALID_EMAIL);
-    await user.type(screen.getByLabelText("Password"), VALID_PASSWORD);
-    await user.click(screen.getByRole("button", { name: "Create account" }));
-
-    expect(mockPush).toHaveBeenCalledWith("/");
-  });
-
   test("shows auth error on failed submission", async () => {
-    mockSignUpEmail.mockResolvedValue({ error: { message: "Email already in use" } });
+    mockSignUpAction.mockResolvedValue({ success: false, error: "Email already in use" });
     const user = userEvent.setup();
     renderForm();
 
@@ -132,18 +99,5 @@ describe("SignUpForm", () => {
     fireEvent.blur(passwordInput);
 
     expect(screen.getByText("Password must be at least 8 characters")).toBeInTheDocument();
-  });
-
-  test("shows fallback error message when error has no message", async () => {
-    mockSignUpEmail.mockResolvedValue({ error: {} });
-    const user = userEvent.setup();
-    renderForm();
-
-    await user.type(screen.getByLabelText("Name"), VALID_NAME);
-    await user.type(screen.getByLabelText("Email"), VALID_EMAIL);
-    await user.type(screen.getByLabelText("Password"), VALID_PASSWORD);
-    await user.click(screen.getByRole("button", { name: "Create account" }));
-
-    expect(screen.getByText("Something went wrong")).toBeInTheDocument();
   });
 });

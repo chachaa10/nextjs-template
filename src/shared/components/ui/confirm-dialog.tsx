@@ -41,9 +41,7 @@ export function ConfirmDialog({
         </DialogHeader>
 
         <DialogFooter>
-          <DialogClose render={<Button variant="outline" />}>
-            {cancelLabel}
-          </DialogClose>
+          <DialogClose render={<Button variant="outline" />}>{cancelLabel}</DialogClose>
           <Button
             variant={variant === "destructive" ? "destructive" : "default"}
             onClick={() => {

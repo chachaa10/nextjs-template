@@ -10,12 +10,7 @@ import { useState } from "react";
 
 import type { Todo } from "@/db/schema/todo-schema.ts";
 import { Button } from "@/shared/components/ui/button.tsx";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/shared/components/ui/card.tsx";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card.tsx";
 import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog.tsx";
 import {
   Table,
@@ -47,7 +42,7 @@ export function TodoList({ initialTodos }: TodoListProps) {
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
   const [deletingTodo, setDeletingTodo] = useState<Todo | null>(null);
 
-  const mode = editingTodo ? "edit" as const : "create" as const;
+  const mode = editingTodo ? ("edit" as const) : ("create" as const);
   const initialValues = editingTodo
     ? { title: editingTodo.title, description: editingTodo.description ?? "" }
     : undefined;
@@ -95,9 +90,7 @@ export function TodoList({ initialTodos }: TodoListProps) {
   const columns = [
     columnHelper.accessor("title", {
       header: "Title",
-      cell: (info) => (
-        <span className="font-medium">{info.getValue()}</span>
-      ),
+      cell: (info) => <span className="font-medium">{info.getValue()}</span>,
     }),
     columnHelper.accessor("description", {
       header: "Description",
@@ -105,27 +98,17 @@ export function TodoList({ initialTodos }: TodoListProps) {
     }),
     columnHelper.accessor("createdAt", {
       header: "Created",
-      cell: (info) => (
-        <span className="text-muted-foreground">{formatDate(info.getValue())}</span>
-      ),
+      cell: (info) => <span className="text-muted-foreground">{formatDate(info.getValue())}</span>,
     }),
     columnHelper.display({
       id: "actions",
       header: "Actions",
       cell: ({ row }) => (
         <div className="flex gap-1">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => openEdit(row.original)}
-          >
+          <Button variant="outline" size="sm" onClick={() => openEdit(row.original)}>
             Edit
           </Button>
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={() => setDeletingTodo(row.original)}
-          >
+          <Button variant="destructive" size="sm" onClick={() => setDeletingTodo(row.original)}>
             Delete
           </Button>
         </div>
@@ -169,10 +152,7 @@ export function TodoList({ initialTodos }: TodoListProps) {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <TableHead key={header.id}>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                        {flexRender(header.column.columnDef.header, header.getContext())}
                       </TableHead>
                     ))}
                   </TableRow>
@@ -183,10 +163,7 @@ export function TodoList({ initialTodos }: TodoListProps) {
                   <TableRow key={row.id}>
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                     ))}
                   </TableRow>
@@ -201,11 +178,7 @@ export function TodoList({ initialTodos }: TodoListProps) {
         open={!!deletingTodo}
         onOpenChange={() => setDeletingTodo(null)}
         title="Delete Todo"
-        description={
-          deletingTodo
-            ? `Are you sure you want to delete "${deletingTodo.title}"?`
-            : ""
-        }
+        description={deletingTodo ? `Are you sure you want to delete "${deletingTodo.title}"?` : ""}
         confirmLabel="Delete"
         variant="destructive"
         onConfirm={() => {

@@ -1,34 +1,35 @@
 "use client";
 
-import type { Route } from "next";
 import { useForm } from "@tanstack/react-form";
-import { useRouter } from "next/navigation";
+import type { Route } from "next";
 import { useState } from "react";
-
-import { authClient } from "@/lib/auth-client.ts";
+import { SecretInput } from "@/shared/components/secret-input.tsx";
 import { Button } from "@/shared/components/ui/button.tsx";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/shared/components/ui/field.tsx";
 import { Input } from "@/shared/components/ui/input.tsx";
+import { signInAction } from "../actions/auth-actions.ts";
 import { LoginSchema } from "../validation/auth-validate.ts";
 
 export function LoginForm({ redirectTo }: { redirectTo: Route | undefined }) {
-  const router = useRouter();
   const [authError, setAuthError] = useState<string | null>(null);
 
   const form = useForm({
     defaultValues: { email: "", password: "" },
     validators: {
-      onChange: () => { setAuthError(null); },
+      onChange: () => {
+        setAuthError(null);
+      },
       onSubmit: LoginSchema,
     },
     onSubmit: async ({ value }) => {
       setAuthError(null);
-      const { error } = await authClient.signIn.email(value);
-      if (error) {
-        setAuthError(error.message ?? "Invalid email or password");
+      const result = await signInAction(value);
+      if (!result.success) {
+        setAuthError(result.error);
         return;
       }
-      router.push(redirectTo ?? "/");
+      form.reset();
+      window.location.href = redirectTo ?? "/";
     },
   });
 
@@ -71,10 +72,9 @@ export function LoginForm({ redirectTo }: { redirectTo: Route | undefined }) {
             return (
               <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                <Input
+                <SecretInput
                   id={field.name}
                   name={field.name}
-                  type="password"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}

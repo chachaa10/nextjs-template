@@ -42,11 +42,7 @@ export default function LoginPage({
   );
 }
 
-async function LoginFormLoader({
-  searchParams,
-}: {
-  searchParams: Promise<{ redirect?: string }>;
-}) {
+async function LoginFormLoader({ searchParams }: { searchParams: Promise<{ redirect?: string }> }) {
   const redirect = (await searchParams).redirect as Route | undefined;
   return <LoginForm redirectTo={redirect} />;
 }

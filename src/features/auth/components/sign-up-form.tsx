@@ -2,17 +2,15 @@
 
 import { useForm } from "@tanstack/react-form";
 import type { Route } from "next";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-import { authClient } from "@/lib/auth-client.ts";
+import { SecretInput } from "@/shared/components/secret-input.tsx";
 import { Button } from "@/shared/components/ui/button.tsx";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/shared/components/ui/field.tsx";
 import { Input } from "@/shared/components/ui/input.tsx";
+import { signUpAction } from "../actions/auth-actions.ts";
 import { signUpSchema } from "../validation/auth-validate.ts";
 
 export function SignUpForm({ redirectTo }: { redirectTo: Route | undefined }) {
-  const router = useRouter();
   const [authError, setAuthError] = useState<string | null>(null);
 
   const form = useForm({
@@ -25,12 +23,13 @@ export function SignUpForm({ redirectTo }: { redirectTo: Route | undefined }) {
     },
     onSubmit: async ({ value }) => {
       setAuthError(null);
-      const { error } = await authClient.signUp.email(value);
-      if (error) {
-        setAuthError(error.message ?? "Something went wrong");
+      const result = await signUpAction(value);
+      if (!result.success) {
+        setAuthError(result.error);
         return;
       }
-      router.push(redirectTo ?? "/");
+      form.reset();
+      window.location.href = redirectTo ?? "/";
     },
   });
 
@@ -89,24 +88,20 @@ export function SignUpForm({ redirectTo }: { redirectTo: Route | undefined }) {
           }}
         </form.Field>
 
-        <form.Field
-          name="password"
-          validators={{ onBlur: signUpSchema.shape.password }}
-        >
+        <form.Field name="password" validators={{ onBlur: signUpSchema.shape.password }}>
           {(field) => {
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (
               <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                <Input
+                <SecretInput
                   id={field.name}
                   name={field.name}
-                  type="password"
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
                   aria-invalid={isInvalid}
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                   autoComplete="new-password"
                 />
                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
