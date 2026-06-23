@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { VALID_EMAIL, VALID_NAME, VALID_PASSWORD } from "../const/test-constants.ts";
-import { LoginSchema, signUpSchema } from "./auth-validate.ts";
+import { VALID_EMAIL, VALID_NAME, VALID_PASSWORD } from "../const/test-constants";
+import { LoginSchema, signUpSchema } from "./auth-validate";
 
 describe("signUpSchema", () => {
   test("accepts valid input", () => {

@@ -1,6 +1,6 @@
-import { getTodos } from "@/features/todo/actions/queries.ts";
-import { TodoList } from "@/features/todo/components/todo-list.tsx";
-import { getCurrentUser } from "@/lib/auth.ts";
+import { getTodos } from "@/features/todo/actions/queries";
+import { TodoList } from "@/features/todo/components/todo-list";
+import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 

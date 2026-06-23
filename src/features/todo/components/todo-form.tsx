@@ -3,7 +3,7 @@
 import { useForm } from "@tanstack/react-form-nextjs";
 import { useState } from "react";
 
-import { Button } from "@/shared/components/ui/button.tsx";
+import { Button } from "@/shared/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -11,10 +11,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/shared/components/ui/dialog.tsx";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/shared/components/ui/field.tsx";
-import { Input } from "@/shared/components/ui/input.tsx";
-import { type CreateTodo, createTodoSchema } from "../validation/todo-validate.ts";
+} from "@/shared/components/ui/dialog";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/shared/components/ui/field";
+import { Input } from "@/shared/components/ui/input";
+import { type CreateTodo, createTodoSchema } from "../validation/todo-validate";
 
 type SubmitHandler = (values: CreateTodo) => Promise<{ success: boolean; error?: string }>;
 

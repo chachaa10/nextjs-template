@@ -3,8 +3,8 @@ import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
 import { headers } from "next/headers";
 import { cache } from "react";
-import { db } from "../database/db.ts";
-import * as schema from "../database/schema/index.ts";
+import { db } from "../database/db";
+import * as schema from "../database/schema/index";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {

@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useAuth } from "@/features/auth/hooks/useAuth.ts";
-import { Button } from "@/shared/components/ui/button.tsx";
-import { signOutAction } from "../actions/auth-actions.ts";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import { Button } from "@/shared/components/ui/button";
+import { signOutAction } from "../actions/auth-actions";
 
 export function Navbar() {
   const { user, isPending, isLoggedIn, refresh } = useAuth();

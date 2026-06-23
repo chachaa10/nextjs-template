@@ -3,12 +3,12 @@
 import { useForm } from "@tanstack/react-form";
 import type { Route } from "next";
 import { useState } from "react";
-import { SecretInput } from "@/shared/components/secret-input.tsx";
-import { Button } from "@/shared/components/ui/button.tsx";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/shared/components/ui/field.tsx";
-import { Input } from "@/shared/components/ui/input.tsx";
-import { signUpAction } from "../actions/auth-actions.ts";
-import { signUpSchema } from "../validation/auth-validate.ts";
+import { SecretInput } from "@/shared/components/secret-input";
+import { Button } from "@/shared/components/ui/button";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/shared/components/ui/field";
+import { Input } from "@/shared/components/ui/input";
+import { signUpAction } from "../actions/auth-actions";
+import { signUpSchema } from "../validation/auth-validate";
 
 export function SignUpForm({ redirectTo }: { redirectTo: Route | undefined }) {
   const [authError, setAuthError] = useState<string | null>(null);

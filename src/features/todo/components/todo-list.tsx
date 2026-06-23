@@ -8,10 +8,10 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 
-import type { Todo } from "@/database/schema/todo-schema.ts";
-import { Button } from "@/shared/components/ui/button.tsx";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card.tsx";
-import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog.tsx";
+import type { Todo } from "@/database/schema/todo-schema";
+import { Button } from "@/shared/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card";
+import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog";
 import {
   Table,
   TableBody,
@@ -19,10 +19,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/shared/components/ui/table.tsx";
-import { createTodo, deleteTodo, updateTodo } from "../actions/mutations.ts";
-import type { CreateTodo } from "../validation/todo-validate.ts";
-import { TodoForm } from "./todo-form.tsx";
+} from "@/shared/components/ui/table";
+import { createTodo, deleteTodo, updateTodo } from "../actions/mutations";
+import type { CreateTodo } from "../validation/todo-validate";
+import { TodoForm } from "./todo-form";
 
 function formatDate(value: Date | string): string {
   return new Date(value).toLocaleDateString("en-US", {

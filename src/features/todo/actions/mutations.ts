@@ -2,16 +2,16 @@
 
 import { and, eq } from "drizzle-orm";
 import { revalidateTag } from "next/cache";
-import { db } from "@/database/db.ts";
-import { type Todo, todo } from "@/database/schema/todo-schema.ts";
-import { getCurrentUser } from "@/lib/auth.ts";
-import type { Result } from "@/shared/types/result.ts";
+import { db } from "@/database/db";
+import { type Todo, todo } from "@/database/schema/todo-schema";
+import { getCurrentUser } from "@/lib/auth";
+import type { Result } from "@/shared/types/result";
 import {
   type CreateTodo,
   createTodoSchema,
   type UpdateTodo,
   updateTodoSchema,
-} from "../validation/todo-validate.ts";
+} from "../validation/todo-validate";
 
 export async function createTodo(input: CreateTodo): Promise<Result<Todo>> {
   try {

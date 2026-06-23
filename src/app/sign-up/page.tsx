@@ -1,6 +1,6 @@
 import type { Route } from "next";
 import { Suspense } from "react";
-import { SignUpForm } from "@/features/auth/components/sign-up-form.tsx";
+import { SignUpForm } from "@/features/auth/components/sign-up-form";
 import { Button } from "@/shared/components/ui/button";
 import {
   Card,
@@ -9,7 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/shared/components/ui/card.tsx";
+} from "@/shared/components/ui/card";
 import Link from "next/link";
 
 export default function SignUpPage({

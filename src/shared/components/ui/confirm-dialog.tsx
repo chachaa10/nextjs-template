@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/shared/components/ui/button.tsx";
+import { Button } from "@/shared/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -9,7 +9,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/shared/components/ui/dialog.tsx";
+} from "@/shared/components/ui/dialog";
 
 interface ConfirmDialogProps {
   open: boolean;

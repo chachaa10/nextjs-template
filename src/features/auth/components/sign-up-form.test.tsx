@@ -2,17 +2,17 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
-import { VALID_EMAIL, VALID_NAME, VALID_PASSWORD } from "../const/test-constants.ts";
+import { VALID_EMAIL, VALID_NAME, VALID_PASSWORD } from "../const/test-constants";
 
 const { mockSignUpAction } = vi.hoisted(() => ({
   mockSignUpAction: vi.fn(),
 }));
 
-vi.mock("../actions/auth-actions.ts", () => ({
+vi.mock("../actions/auth-actions", () => ({
   signUpAction: mockSignUpAction,
 }));
 
-import { SignUpForm } from "./sign-up-form.tsx";
+import { SignUpForm } from "./sign-up-form";
 
 beforeEach(() => {
   vi.clearAllMocks();

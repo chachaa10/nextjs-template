@@ -1,14 +1,14 @@
 "use server";
 
 import { headers } from "next/headers";
-import { auth } from "@/lib/auth.ts";
-import type { Result } from "@/shared/types/result.ts";
+import { auth } from "@/lib/auth";
+import type { Result } from "@/shared/types/result";
 import {
   type LoginFormData,
   LoginSchema,
   type SignUpFormData,
   signUpSchema,
-} from "../validation/auth-validate.ts";
+} from "../validation/auth-validate";
 
 export async function signOutAction(): Promise<Result<unknown>> {
   try {

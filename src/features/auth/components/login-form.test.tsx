@@ -6,12 +6,12 @@ const { mockSignInAction } = vi.hoisted(() => ({
   mockSignInAction: vi.fn(),
 }));
 
-vi.mock("../actions/auth-actions.ts", () => ({
+vi.mock("../actions/auth-actions", () => ({
   signInAction: mockSignInAction,
 }));
 
-import { VALID_EMAIL } from "../const/test-constants.ts";
-import { LoginForm } from "./login-form.tsx";
+import { VALID_EMAIL } from "../const/test-constants";
+import { LoginForm } from "./login-form";
 
 beforeEach(() => {
   vi.clearAllMocks();

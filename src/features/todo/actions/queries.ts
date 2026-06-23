@@ -1,11 +1,11 @@
 "use server";
 
 import { and, desc, eq } from "drizzle-orm";
-import { db } from "@/database/db.ts";
-import { type Todo, todo } from "@/database/schema/todo-schema.ts";
-import { isNotDeleted } from "@/database/utils.ts";
-import { getCurrentUser } from "@/lib/auth.ts";
-import type { Result } from "@/shared/types/result.ts";
+import { db } from "@/database/db";
+import { type Todo, todo } from "@/database/schema/todo-schema";
+import { isNotDeleted } from "@/database/utils";
+import { getCurrentUser } from "@/lib/auth";
+import type { Result } from "@/shared/types/result";
 
 export async function getTodos(): Promise<Result<Todo[]>> {
   try {
@@ -15,7 +15,7 @@ export async function getTodos(): Promise<Result<Todo[]>> {
     const data = await db
       .select()
       .from(todo)
-      .where(eq(todo.userId, auth.user.id))
+      .where(and(eq(todo.userId, auth.user.id), isNotDeleted(todo)))
       .orderBy(desc(todo.createdAt));
 
     if (!data) {

@@ -7,9 +7,7 @@ const envSchema = z.object({
   BETTER_AUTH_SECRET: z
     .string({ error: "BETTER_AUTH_SECRET is required" })
     .min(32, "BETTER_AUTH_SECRET must be at least 32 characters"),
-  BETTER_AUTH_URL: z
-    .string({ error: "BETTER_AUTH_URL is required" })
-    .url("BETTER_AUTH_URL must be a valid URL"),
+  BETTER_AUTH_URL: z.url({ error: "BETTER_AUTH_URL is required" }),
   PORT: z.coerce.number().default(PORT),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 });

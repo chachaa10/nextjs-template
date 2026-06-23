@@ -4,8 +4,8 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
 import postgres from "postgres";
-import { env } from "@/core/config/env.ts";
-import * as schema from "../src/database/schema/index.ts";
+import { env } from "@/core/config/env";
+import * as schema from "../src/database/schema/index";
 
 const sql = postgres(env.DATABASE_URL);
 const db = drizzle(sql, { schema, casing: "snake_case" });

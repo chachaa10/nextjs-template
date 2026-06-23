@@ -3,8 +3,8 @@
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { forwardRef, type InputHTMLAttributes, useState } from "react";
 
-import { cn } from "@/lib/utils.ts";
-import { Input } from "@/shared/components/ui/input.tsx";
+import { cn } from "@/lib/utils";
+import { Input } from "@/shared/components/ui/input";
 
 const SecretInput = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
   ({ className, ...props }, ref) => {
