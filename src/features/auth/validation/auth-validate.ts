@@ -7,8 +7,16 @@ export const signUpSchema = z.object({
     .string()
     .min(8, "Password must be at least 8 characters")
     .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
+      /[A-Z]/,
+      "Password must contain at least one uppercase letter"
+    )
+    .regex(
+      /[a-z]/,
+      "Password must contain at least one lowercase letter"
+    )
+    .regex(
+      /[0-9]/,
+      "Password must contain at least one number"
     )
     .max(128, "Password is too long"),
 });
