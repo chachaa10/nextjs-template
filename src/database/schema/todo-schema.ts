@@ -1,5 +1,5 @@
-import { id, timestamps } from "@/db/utils";
 import { pgTable, text, uuid } from "drizzle-orm/pg-core";
+import { id, timestamps } from "@/database/utils";
 import { users } from "./auth-schema";
 
 export const todo = pgTable("todo", {

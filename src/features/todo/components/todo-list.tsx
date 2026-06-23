@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 
-import type { Todo } from "@/db/schema/todo-schema.ts";
+import type { Todo } from "@/database/schema/todo-schema.ts";
 import { Button } from "@/shared/components/ui/button.tsx";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/components/ui/card.tsx";
 import { ConfirmDialog } from "@/shared/components/ui/confirm-dialog.tsx";

@@ -1,11 +1,11 @@
 "use server";
 
-import { db } from "@/db/db.ts";
-import { type Todo, todo } from "@/db/schema/todo-schema.ts";
-import { getCurrentUser } from "@/lib/auth.ts";
-import type { Result } from "@/shared/types/result.ts";
 import { and, eq } from "drizzle-orm";
 import { revalidateTag } from "next/cache";
+import { db } from "@/database/db.ts";
+import { type Todo, todo } from "@/database/schema/todo-schema.ts";
+import { getCurrentUser } from "@/lib/auth.ts";
+import type { Result } from "@/shared/types/result.ts";
 import {
   type CreateTodo,
   createTodoSchema,

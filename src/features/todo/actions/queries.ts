@@ -1,11 +1,11 @@
 "use server";
 
-import { db } from "@/db/db.ts";
-import { type Todo, todo } from "@/db/schema/todo-schema.ts";
-import { isNotDeleted } from "@/db/utils.ts";
+import { and, desc, eq } from "drizzle-orm";
+import { db } from "@/database/db.ts";
+import { type Todo, todo } from "@/database/schema/todo-schema.ts";
+import { isNotDeleted } from "@/database/utils.ts";
 import { getCurrentUser } from "@/lib/auth.ts";
 import type { Result } from "@/shared/types/result.ts";
-import { and, desc, eq } from "drizzle-orm";
 
 export async function getTodos(): Promise<Result<Todo[]>> {
   try {
